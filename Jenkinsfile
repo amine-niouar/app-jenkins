@@ -32,7 +32,7 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline finished successfully!'
+           echo 'Building the app... version 2'
         }
         failure {
             echo 'Something went wrong!'
