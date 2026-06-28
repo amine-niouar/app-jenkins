@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'php:8.2-cli' }
+    }
 
     stages {
         stage('Checkout') {
@@ -10,29 +12,29 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building the app...'
-                sh 'echo build step runs here'
+                echo 'Checking PHP version...'
+                sh 'php --version'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'echo tests run here'
+                sh 'php test.php'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'echo deploy step runs here'
+                sh 'php index.php'
             }
         }
     }
 
     post {
         success {
-           echo 'Building the app... version 2'
+            echo 'Pipeline finished successfully!'
         }
         failure {
             echo 'Something went wrong!'
